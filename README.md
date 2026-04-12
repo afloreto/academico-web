@@ -22,8 +22,20 @@ A construção do sistema tem como foco principal o estudo e a aplicação real 
 * **Front-end:** HTML, CSS e Razor Views
 * **Padrão de Projeto:** MVC (Model-View-Controller)
 
-## 🚀 Como executar o projeto
+## Como executar o projeto
 
-1. Clone este repositório:
-```bash
-git clone [https://github.com/afloreto/academico-web.git](https://github.com/afloreto/academico-web.git)
+**1. Clone este repositório:**
+*git clone [https://github.com/afloreto/academico-web.git](https://github.com/afloreto/academico-web.git)*
+
+**2. Abra a pasta do projeto na sua IDE preferida (Visual Studio ou VS Code).**
+
+**3. Restaure as dependências do projeto:**
+*dotnet restore*
+
+**4.Execute a aplicação:**
+*dotnet run*
+
+Desenvolvido por **Siene Santos**.
+
+
+
