@@ -1,0 +1,88 @@
+@model List<Academico.Models.Professor>
+
+@{
+    ViewData["Title"] = "Docentes";
+}
+
+<div class="section">
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:2rem;">
+        <div>
+            <h2 class="section-title">Corpo Docente</h2>
+            <p class="section-sub">Encontre professores por área, nome ou e-mail</p>
+            <div class="divider"></div>
+        </div>
+        <a asp-action="CriarProfessor" class="btn btn-primary">+ Cadastrar Professor</a>
+    </div>
+
+    <div class="filtros-box">
+        <div class="filtro-grupo">
+            <label>🔍 Nome</label>
+            <input type="text" id="filtroNome" placeholder="Buscar por nome..." oninput="filtrarDocentes()" />
+        </div>
+        <div class="filtro-grupo">
+            <label>🎓 Área</label>
+            <select id="filtroArea" onchange="filtrarDocentes()">
+                <option value="">Todas as áreas</option>
+                <option value="computação">Computação</option>
+                <option value="dados">Dados</option>
+                <option value="economia">Economia</option>
+                <option value="letras">Letras</option>
+                <option value="matemática">Matemática</option>
+                <option value="pesquisa">Pesquisa</option>
+                <option value="redes">Redes</option>
+                <option value="sistemas">Sistemas</option>
+                <option value="segurança">Segurança</option>
+                <option value="agronomia">Agronomia</option>
+            </select>
+        </div>
+        <div>
+            <button class="btn btn-primary" onclick="limparFiltros()">Limpar</button>
+        </div>
+    </div>
+
+    <div class="docentes-grid" id="listaDocentes">
+        @foreach (var prof in Model)
+        {
+            var inicial = prof.Nome.FirstOrDefault().ToString().ToUpper();
+            <div class="docente-card"
+                data-nome="@prof.Nome.ToLower()"
+                data-area="@prof.Area.ToLower()">
+                <div class="docente-avatar">@inicial</div>
+                <h3>Prof. @prof.Nome</h3>
+                <span class="area-tag">@prof.Area</span>
+                <p class="email">📋 SIAPE: @prof.Siape</p>
+            </div>
+        }
+    </div>
+
+    <p id="semResultado" style="display:none;color:var(--texto-leve);text-align:center;padding:2rem;">
+        Nenhum docente encontrado com os filtros aplicados.
+    </p>
+</div>
+
+@section Scripts {
+<script>
+    function filtrarDocentes() {
+        const nome = document.getElementById('filtroNome').value.toLowerCase();
+        const area = document.getElementById('filtroArea').value.toLowerCase();
+        const cards = document.querySelectorAll('.docente-card');
+        let visiveis = 0;
+
+        cards.forEach(card => {
+            const n = card.dataset.nome.toLowerCase();
+            const a = card.dataset.area.toLowerCase();
+            const ok = n.includes(nome) && a.includes(area);
+            card.style.display = ok ? '' : 'none';
+            if (ok) visiveis++;
+        });
+
+        document.getElementById('semResultado').style.display = visiveis === 0 ? 'block' : 'none';
+    }
+
+    function limparFiltros() {
+        document.getElementById('filtroNome').value = '';
+        document.getElementById('filtroArea').value = '';
+        filtrarDocentes();
+    }
+</script>
+}

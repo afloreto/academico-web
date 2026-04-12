@@ -1,0 +1,59 @@
+@model Academico.Models.Professor
+
+@{
+    ViewData["Title"] = "Cadastrar Professor";
+}
+
+<div class="section">
+    <h2 class="section-title">Cadastrar Professor</h2>
+    <p class="section-sub">Preencha os dados para cadastrar um novo docente</p>
+    <div class="divider"></div>
+
+    <div class="card" style="max-width:560px;">
+        <form method="post" asp-action="CriarProfessor">
+
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Nome completo</label>
+                <input asp-for="Nome" placeholder="Ex: Prof. João da Silva" required />
+            </div>
+
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>CPF</label>
+                <input asp-for="Cpf" placeholder="000.000.000-00" required />
+            </div>
+
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>SIAPE</label>
+                <input asp-for="Siape" placeholder="Ex: 1234567" required />
+            </div>
+
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Data de Nascimento</label>
+                <input asp-for="DataNascimento" type="date" required />
+            </div>
+
+            <div class="filtro-grupo" style="margin-bottom:1.75rem;">
+                <label>Área</label>
+                <select asp-for="Area" required>
+                    <option value="">Selecione uma área</option>
+                    <option value="Computação">Computação</option>
+                    <option value="Dados">Dados</option>
+                    <option value="Economia">Economia</option>
+                    <option value="Letras">Letras</option>
+                    <option value="Matemática">Matemática</option>
+                    <option value="Pesquisa">Pesquisa</option>
+                    <option value="Redes">Redes</option>
+                    <option value="Sistemas">Sistemas</option>
+                    <option value="Segurança">Segurança</option>
+                    <option value="Agronomia">Agronomia</option>
+                </select>
+            </div>
+
+            <div style="display:flex; gap:.75rem;">
+                <button type="submit" class="btn btn-primary" style="flex:1;">Cadastrar</button>
+                <a asp-action="Index" class="btn btn-outline" style="color:var(--azul); border-color:var(--cinza-borda);">Cancelar</a>
+            </div>
+
+        </form>
+    </div>
+</div>

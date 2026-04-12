@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] – Acadêmico WEB</title>
+    <link rel="stylesheet" href="~/css/academico.css" asp-append-version="true" />
+</head>
+<body>
+
+    <nav class="navbar">
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+            <div class="logo-icon">A</div>
+            <span>Acadêmico WEB</span>
+        </a>
+        <ul class="navbar-nav">
+            <li>
+                <a asp-controller="Home" asp-action="Index"
+                class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")">
+                    Início
+                </a>
+            </li>
+            <li>
+                <a asp-controller="Aluno" asp-action="Index"
+                class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Aluno" ? "active" : "")">
+                    Discente
+                </a>
+            </li>
+            <li>
+                <a asp-controller="Professor" asp-action="Index"
+                class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Professor" ? "active" : "")">
+                    Docentes
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer>
+        <strong>Instituto Federal de Mato Grosso</strong> – Campus Campo Verde &nbsp;|&nbsp;
+        Acadêmico WEB &copy; @DateTime.Now.Year
+    </footer>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

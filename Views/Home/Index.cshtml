@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "Início";
+}
+
+<section class="hero">
+    <div class="hero-badge">Instituto Federal de Mato Grosso · Campus Campo Verde</div>
+    <h1>Sistema de Gestão<br/>Acadêmica</h1>
+    <p>Acompanhe sua vida acadêmica, consulte docentes, disciplinas e boletins em um só lugar.</p>
+    <a class="btn btn-primary" asp-controller="Aluno" asp-action="Index">Ver meu perfil</a>
+    <a class="btn btn-outline" asp-controller="Docente" asp-action="Index">Corpo docente</a>
+</section>
+
+<div class="section">
+    <div class="stats-row">
+        <div class="stat-box">
+            <div class="num">3</div>
+            <div class="label">Cursos superiores</div>
+        </div>
+        <div class="stat-box">
+            <div class="num">600+</div>
+            <div class="label">Discentes matriculados</div>
+        </div>
+        <div class="stat-box">
+            <div class="num">40</div>
+            <div class="label">Docentes ativos</div>
+        </div>
+        <div class="stat-box">
+            <div class="num">2006</div>
+            <div class="label">Ano de fundação</div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Cursos do Campus</h2>
+    <p class="section-sub">Oferta de cursos superiores do IFMT - Campus Campo Verde</p>
+    <div class="divider"></div>
+
+    <div class="cursos-grid">
+        <div class="curso-card" style="border-left-color: #2456a4;">
+            <span class="tag" style="background:#e8eef8; color:#2456a4;">Tecnologia</span>
+            <h3>Tecnologia em Análise e Desenvolvimento de Sistemas</h3>
+            <p>Graduação em desenvolvimento de software, sistemas web e banco de dados. 3 anos · Turno Noturno.</p>
+        </div>
+        <div class="curso-card">
+            <span class="tag">Agronomia</span>
+            <h3>Agronomia — Turno Noturno</h3>
+            <p>Bacharelado voltado a profissionais que trabalham durante o dia. Ênfase em gestão rural e sustentabilidade. 5 anos.</p>
+        </div>
+        <div class="curso-card" style="border-left-color: var(--ouro);">
+            <span class="tag" style="background:#fdf3e1; color:#8a5e1a;">Agronomia</span>
+            <h3>Agronomia — Integral</h3>
+            <p>Bacharelado em tempo integral com ênfase em pesquisa, extensão e práticas de campo. 5 anos.</p>
+        </div>
+    </div>
+
+    <div style="margin-top: 3rem;">
+        <h2 class="section-title">Sobre o IFMT – Campo Verde</h2>
+        <div class="divider"></div>
+        <div class="card" style="display:flex; gap:2rem; flex-wrap:wrap; align-items:center;">
+            <div style="flex:1; min-width:240px;">
+                <p style="line-height:1.8; color:var(--texto-leve); font-size:.93rem;">
+                    O <strong style="color:var(--azul)">Instituto Federal de Mato Grosso - Campus Campo Verde</strong>
+                    é uma instituição pública federal de ensino profissional, científico e tecnológico, vinculada ao Ministério da Educação.
+                    <br/><br/>
+                    Fundado em 2006, o campus oferece formação de excelência nas áreas de tecnologia da informação e ciências agrárias, preparando profissionais para os desafios do mercado regional e nacional.
+                    <br/><br/>
+                    Com infraestrutura moderna, laboratórios equipados e corpo docente altamente qualificado, o IFMT Campo Verde alia teoria e prática para formar cidadãos críticos, inovadores e comprometidos com o desenvolvimento sustentável do estado de Mato Grosso.
+                </p>
+            </div>
+            <div style="flex:0 0 auto; text-align:center;">
+                <img src="~/img/ifmt.png"
+                    onerror="this.style.display='none'"
+                    alt="Campus IFMT Campo Verde"
+                    style="max-width:200px; border-radius:12px; box-shadow:var(--sombra);" />
+                <div style="margin-top:.75rem; font-size:.8rem; color:var(--texto-leve);">
+                    📍 Campo Verde - MT
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

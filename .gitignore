@@ -1,0 +1,23 @@
+# pastas de compilação do C# / .NET 
+[Bb]in/
+[Oo]bj/
+
+# configurações de IDEs (Visual Studio e VS Code)
+.vscode/
+.vs/
+*.user
+*.suo
+
+# bancos de dados locais (evita subir o banco com dados de teste)
+*.db
+*.sqlite
+*.sqlite3
+*.mdf
+*.ldf
+
+# arquivos temporários do Mac/Windows
+.DS_Store
+Thumbs.db
+
+# variáveis secretas
+.env
