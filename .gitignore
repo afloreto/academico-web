@@ -1,23 +1,28 @@
-# pastas de compilação do C# / .NET 
-[Bb]in/
-[Oo]bj/
+# Pastas de compilação
+bin/
+obj/
 
-# configurações de IDEs (Visual Studio e VS Code)
-.vscode/
+# Pastas de configurações locais
 .vs/
+.vscode/
+
+# Configurações de usuário
 *.user
+*.userosscache
+*.userprefs
+
+# Arquivos temporários e de log
+*.log
+*.tmp
+*.bak
+*.db
 *.suo
 
-# bancos de dados locais (evita subir o banco com dados de teste)
+# Banco de dados local (se estiver na pasta do projeto)
 *.db
 *.sqlite
-*.sqlite3
-*.mdf
-*.ldf
-
-# arquivos temporários do Mac/Windows
-.DS_Store
-Thumbs.db
+*.sdf
 
 # variáveis secretas
 .env
+
