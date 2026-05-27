@@ -6,8 +6,16 @@
     <div class="hero-badge">Instituto Federal de Mato Grosso · Campus Campo Verde</div>
     <h1>Sistema de Gestão<br/>Acadêmica</h1>
     <p>Acompanhe sua vida acadêmica, consulte docentes, disciplinas e boletins em um só lugar.</p>
-    <a class="btn btn-primary" asp-controller="Aluno" asp-action="Index">Ver meu perfil</a>
-    <a class="btn btn-outline" asp-controller="Docente" asp-action="Index">Corpo docente</a>
+
+    @if (Context.Session.GetString("UsuarioNome") != null)
+    {
+        <a class="btn btn-primary" asp-controller="Aluno" asp-action="Index">Ver meu perfil</a>
+        <a class="btn btn-outline" asp-controller="Professor" asp-action="Index">Corpo docente</a>
+    }
+    else
+    {
+        <a class="btn btn-primary" asp-controller="Auth" asp-action="Login">Acessar o Sistema</a>
+    }
 </section>
 
 <div class="section">
@@ -42,18 +50,18 @@
         </div>
         <div class="curso-card">
             <span class="tag">Agronomia</span>
-            <h3>Agronomia — Turno Noturno</h3>
+            <h3>Agronomia - Turno Noturno</h3>
             <p>Bacharelado voltado a profissionais que trabalham durante o dia. Ênfase em gestão rural e sustentabilidade. 5 anos.</p>
         </div>
         <div class="curso-card" style="border-left-color: var(--ouro);">
             <span class="tag" style="background:#fdf3e1; color:#8a5e1a;">Agronomia</span>
-            <h3>Agronomia — Integral</h3>
+            <h3>Agronomia - Integral</h3>
             <p>Bacharelado em tempo integral com ênfase em pesquisa, extensão e práticas de campo. 5 anos.</p>
         </div>
     </div>
 
     <div style="margin-top: 3rem;">
-        <h2 class="section-title">Sobre o IFMT – Campo Verde</h2>
+        <h2 class="section-title">Sobre o IFMT - Campo Verde</h2>
         <div class="divider"></div>
         <div class="card" style="display:flex; gap:2rem; flex-wrap:wrap; align-items:center;">
             <div style="flex:1; min-width:240px;">

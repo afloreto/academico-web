@@ -1,0 +1,48 @@
+@model Academico.Models.Aluno
+
+@{
+    ViewData["Title"] = "Editar Aluno";
+}
+
+<div class="section">
+    <h2 class="section-title">Editar Aluno</h2>
+    <p class="section-sub">Atualize os dados do aluno</p>
+    <div class="divider"></div>
+
+    <div class="card" style="max-width:560px;">
+        <form method="post" asp-action="EditarAluno">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Matricula" />
+
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Nome completo</label>
+                <input asp-for="Nome" required />
+            </div>
+
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>CPF</label>
+                <input asp-for="Cpf" required />
+            </div>
+
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Data de Nascimento</label>
+                <input asp-for="DataNascimento" type="date" required />
+            </div>
+
+            <div class="filtro-grupo" style="margin-bottom:1.75rem;">
+                <label>Curso</label>
+                <select asp-for="Curso" required>
+                    <option value="">Selecione um curso</option>
+                    <option value="Tecnologia em Análise e Desenvolvimento de Sistemas">TADS</option>
+                    <option value="Agronomia Noturno">Agronomia Noturno</option>
+                    <option value="Agronomia Integral">Agronomia Integral</option>
+                </select>
+            </div>
+
+            <div style="display:flex; gap:.75rem;">
+                <button type="submit" class="btn btn-primary" style="flex:1;">Salvar</button>
+                <a asp-action="Index" class="btn btn-outline" style="color:var(--azul); border-color:var(--cinza-borda);">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>

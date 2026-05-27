@@ -1,0 +1,70 @@
+@model List<Academico.Models.Disciplina>
+
+@{
+    ViewData["Title"] = "Disciplinas";
+    var aluno = ViewBag.Aluno as Academico.Models.Aluno;
+}
+
+<div class="section">
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:2rem;">
+        <div>
+            <h2 class="section-title">Disciplinas de @aluno?.Nome</h2>
+            <p class="section-sub">Gerencie as disciplinas matriculadas</p>
+            <div class="divider"></div>
+        </div>
+        <div style="display:flex; gap:.75rem;">
+            <a asp-action="Adicionar" asp-route-alunoId="@aluno?.Id" class="btn btn-primary">+ Adicionar Disciplina</a>
+            <a asp-controller="Aluno" asp-action="Index" class="btn btn-outline" style="color:var(--azul); border-color:var(--cinza-borda);">← Voltar</a>
+        </div>
+    </div>
+
+    <div class="card" style="padding:0; overflow:hidden;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Disciplina</th>
+                    <th>Docente</th>
+                    <th>C/H</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var d in Model)
+                {
+                    <tr>
+                        <td style="color:var(--texto-leve); font-size:.85rem;">@d.Codigo</td>
+                        <td style="font-weight:600;">@d.Nome</td>
+                        <td style="color:var(--texto-leve);">@d.Docente</td>
+                        <td>@d.CargaHoraria</td>
+                        <td>
+                            <div style="display:flex; gap:.5rem;">
+                                <a asp-action="Editar" asp-route-id="@d.Id"
+                                   style="font-size:.78rem; padding:.3rem .75rem; background:#e5f0e6; color:var(--azul-claro); border-radius:6px; font-weight:600; text-decoration:none;">
+                                    Editar
+                                </a>
+                                <form method="post" asp-action="Excluir"
+                                      onsubmit="return confirm('Excluir @d.Nome?')">
+                                    <input type="hidden" name="id" value="@d.Id" />
+                                    <input type="hidden" name="alunoId" value="@d.AlunoId" />
+                                    <button type="submit"
+                                            style="font-size:.78rem; padding:.3rem .75rem; background:#fee2e2; color:#ad0303; border-radius:6px; font-weight:600; border:none; cursor:pointer;">
+                                        Excluir
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="5" style="text-align:center; padding:2rem; color:var(--texto-leve);">
+                            Nenhuma disciplina cadastrada ainda.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

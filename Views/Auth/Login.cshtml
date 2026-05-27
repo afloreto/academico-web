@@ -1,0 +1,105 @@
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Acadêmico WEB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/academico.css" />
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--azul) 0%, var(--verde-escuro) 100%);
+        }
+        .login-box {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 8px 40px rgba(0,0,0,.18);
+        }
+        .login-logo {
+            text-align: center;
+            margin-bottom: 1.75rem;
+        }
+        .login-logo img {
+            height: 56px;
+            width: auto;
+            margin-bottom: .75rem;
+        }
+        .login-logo h1 {
+            font-family: var(--fonte-titulo);
+            font-size: 1.3rem;
+            color: var(--azul);
+            margin: 0;
+        }
+        .login-logo p {
+            font-size: .82rem;
+            color: var(--texto-leve);
+            margin-top: .25rem;
+        }
+        .erro {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: .75rem 1rem;
+            border-radius: 8px;
+            font-size: .88rem;
+            margin-bottom: 1.25rem;
+            text-align: center;
+        }
+        .login-footer {
+            text-align: center;
+            margin-top: 1.25rem;
+            font-size: .82rem;
+            color: var(--texto-leve);
+        }
+        .login-footer a {
+            color: var(--verde);
+            font-weight: 600;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <div class="login-logo">
+            <img src="~/img/logo-ifmt.png" alt="IFMT" />
+            <h1>Acadêmico WEB</h1>
+            <p>IFMT - Campus Campo Verde</p>
+        </div>
+
+        @if (ViewBag.Erro != null)
+        {
+            <div class="erro">@ViewBag.Erro</div>
+        }
+
+        <form method="post" asp-action="Login">
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>E-mail</label>
+                <input type="email" name="email" placeholder="seu@email.com" required />
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.75rem;">
+                <label>Senha</label>
+                <input type="password" name="senha" placeholder="••••••••" required />
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
+                Entrar
+            </button>
+        </form>
+
+        <div class="login-footer">
+            Não tem conta? <a asp-action="Registro">Criar conta</a>
+        </div>
+    </div>
+</body>
+</html>

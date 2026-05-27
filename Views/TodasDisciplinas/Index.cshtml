@@ -1,0 +1,158 @@
+@{
+    ViewData["Title"] = "Disciplinas";
+    var disciplinasAlunos = ViewBag.DisciplinasAlunos as List<Academico.Models.Disciplina> ?? new List<Academico.Models.Disciplina>();
+    var disciplinasProfessores = ViewBag.DisciplinasProfessores as List<Academico.Models.DisciplinaProfessor> ?? new List<Academico.Models.DisciplinaProfessor>();
+}
+
+<div class="section">
+    <div style="margin-bottom:2rem;">
+        <h2 class="section-title">Todas as Disciplinas</h2>
+        <p class="section-sub">Visão geral de todas as disciplinas do sistema</p>
+        <div class="divider"></div>
+    </div>
+
+    <div class="stats-row" style="margin-bottom:2.5rem;">
+        <div class="stat-box">
+            <div class="num">@(disciplinasAlunos.Count + disciplinasProfessores.Count)</div>
+            <div class="label">Total</div>
+        </div>
+        <div class="stat-box">
+            <div class="num">@disciplinasAlunos.Count</div>
+            <div class="label">De Alunos</div>
+        </div>
+        <div class="stat-box">
+            <div class="num">@disciplinasProfessores.Count</div>
+            <div class="label">De Professores</div>
+        </div>
+    </div>
+
+    <h3 class="section-title" style="font-size:1.25rem; margin-bottom:.5rem;">Disciplinas Ministradas</h3>
+    <p class="section-sub" style="margin-bottom:1rem;">Disciplinas vinculadas aos docentes</p>
+
+    @if (!disciplinasProfessores.Any())
+    {
+        <div class="card" style="text-align:center; padding:2rem; color:var(--texto-leve); margin-bottom:2rem;">
+            Nenhuma disciplina de professor cadastrada.
+        </div>
+    }
+    else
+    {
+        @foreach (var d in disciplinasProfessores)
+        {
+            var totalAulas = d.TotalAulas > 0 ? d.TotalAulas : 80;
+            var pct = totalAulas > 0 ? (int)((d.AulasMinistradasDadas / (double)totalAulas) * 100) : 0;
+            var corBarra = pct >= 75 ? "#1a7a4a" : pct >= 50 ? "#c8973a" : "#e74c3c";
+
+            <div class="card" style="margin-bottom:1.25rem; padding:0; overflow:hidden;">
+                <div style="background:var(--cinza-bg); padding:.6rem 1.25rem; border-bottom:1px solid var(--cinza-borda);">
+                    <span style="font-size:.78rem; color:var(--texto-leve);">@d.Codigo</span>
+                </div>
+                <div style="padding:.9rem 1.25rem .5rem;">
+                    <h3 style="font-family:var(--fonte-titulo); font-size:1rem; color:var(--azul); margin:0;">
+                        @d.Codigo - @d.Nome [@d.CargaHoraria]
+                    </h3>
+                    @if (d.Professor != null)
+                    {
+                        <p style="font-size:.82rem; color:var(--texto-leve); margin-top:.25rem;">
+                            Prof. @d.Professor.Nome
+                        </p>
+                    }
+                </div>
+                <div style="padding:.5rem 1.25rem 1rem; display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:.75rem 1.5rem;">
+                    <div>
+                        <div style="font-size:.72rem; color:var(--texto-leve); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.2rem;">Turno</div>
+                        <div style="font-size:.85rem;">@(string.IsNullOrEmpty(d.Turno) ? "—" : d.Turno)</div>
+                    </div>
+                    <div>
+                        <div style="font-size:.72rem; color:var(--texto-leve); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.2rem;">Alunos</div>
+                        <div style="font-size:.85rem; color:var(--azul-claro); font-weight:600;">@d.QuantidadeAlunos</div>
+                    </div>
+                    <div>
+                        <div style="font-size:.72rem; color:var(--texto-leve); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.2rem;">Horário</div>
+                        <div style="font-size:.85rem;">@(string.IsNullOrEmpty(d.Horario) ? "—" : d.Horario)</div>
+                    </div>
+                    <div>
+                        <div style="font-size:.72rem; color:var(--texto-leve); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.2rem;">Local</div>
+                        <div style="font-size:.85rem;">@(string.IsNullOrEmpty(d.LocalAula) ? "—" : d.LocalAula)</div>
+                    </div>
+                </div>
+                <div style="padding:.5rem 1.25rem 1.25rem;">
+                    <div style="font-size:.72rem; color:var(--texto-leve); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.4rem;">
+                        Aulas Ministradas &nbsp;·&nbsp; @d.AulasMinistradasDadas de @totalAulas aulas
+                    </div>
+                    <div style="display:flex; align-items:center; gap:.75rem;">
+                        <div style="flex:1; height:18px; background:var(--cinza-borda); border-radius:4px; overflow:hidden;">
+                            <div style="width:@(pct)%; height:100%; background:@corBarra; border-radius:4px;"></div>
+                        </div>
+                        <span style="font-size:.82rem; font-weight:700; color:@corBarra; min-width:36px;">@(pct)%</span>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+    <h3 class="section-title" style="font-size:1.25rem; margin-bottom:.5rem; margin-top:2rem;">Disciplinas Matriculadas</h3>
+    <p class="section-sub" style="margin-bottom:1rem;">Disciplinas vinculadas aos discentes</p>
+
+    @if (!disciplinasAlunos.Any())
+    {
+        <div class="card" style="text-align:center; padding:2rem; color:var(--texto-leve);">
+            Nenhuma disciplina de aluno cadastrada.
+        </div>
+    }
+    else
+    {
+        @foreach (var d in disciplinasAlunos)
+        {
+            var totalAulas = d.TotalAulas > 0 ? d.TotalAulas : 80;
+            var pct = totalAulas > 0 ? (int)((d.AulasMinistradasDadas / (double)totalAulas) * 100) : 0;
+            var corBarra = pct >= 75 ? "#1a7a4a" : pct >= 50 ? "#c8973a" : "#e74c3c";
+
+            <div class="card" style="margin-bottom:1.25rem; padding:0; overflow:hidden;">
+                <div style="background:var(--cinza-bg); padding:.6rem 1.25rem; border-bottom:1px solid var(--cinza-borda);">
+                    <span style="font-size:.78rem; color:var(--texto-leve);">@d.Codigo</span>
+                </div>
+                <div style="padding:.9rem 1.25rem .5rem;">
+                    <h3 style="font-family:var(--fonte-titulo); font-size:1rem; color:var(--azul); margin:0;">
+                        @d.Codigo - @d.Nome [@d.CargaHoraria]
+                    </h3>
+                    @if (d.Aluno != null)
+                    {
+                        <p style="font-size:.82rem; color:var(--texto-leve); margin-top:.25rem;">
+                            @d.Aluno.Nome
+                        </p>
+                    }
+                </div>
+                <div style="padding:.5rem 1.25rem 1rem; display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:.75rem 1.5rem;">
+                    <div>
+                        <div style="font-size:.72rem; color:var(--texto-leve); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.2rem;">⚙️ Turno</div>
+                        <div style="font-size:.85rem;">@(string.IsNullOrEmpty(d.Turno) ? "—" : d.Turno)</div>
+                    </div>
+                    <div>
+                        <div style="font-size:.72rem; color:var(--texto-leve); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.2rem;">Docente</div>
+                        <div style="font-size:.85rem;">@d.Docente</div>
+                    </div>
+                    <div>
+                        <div style="font-size:.72rem; color:var(--texto-leve); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.2rem;">Horário</div>
+                        <div style="font-size:.85rem;">@(string.IsNullOrEmpty(d.Horario) ? "—" : d.Horario)</div>
+                    </div>
+                    <div>
+                        <div style="font-size:.72rem; color:var(--texto-leve); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.2rem;">Local</div>
+                        <div style="font-size:.85rem;">@(string.IsNullOrEmpty(d.LocalAula) ? "—" : d.LocalAula)</div>
+                    </div>
+                </div>
+                <div style="padding:.5rem 1.25rem 1.25rem;">
+                    <div style="font-size:.72rem; color:var(--texto-leve); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.4rem;">
+                        Aulas Ministradas &nbsp;·&nbsp; @d.AulasMinistradasDadas de @totalAulas aulas
+                    </div>
+                    <div style="display:flex; align-items:center; gap:.75rem;">
+                        <div style="flex:1; height:18px; background:var(--cinza-borda); border-radius:4px; overflow:hidden;">
+                            <div style="width:@(pct)%; height:100%; background:@corBarra; border-radius:4px;"></div>
+                        </div>
+                        <span style="font-size:.82rem; font-weight:700; color:@corBarra; min-width:36px;">@(pct)%</span>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

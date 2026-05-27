@@ -27,7 +27,30 @@ public class ProfessorController : Controller
     [HttpPost]
     public async Task<IActionResult> CriarProfessor(Professor professor)
     {
-        await _professorRepository.CriarProfessorAsync(professor);
+        if(await _professorRepository.CriarProfessorAsync(professor))
+        {
+            TempData["Mensagem"] = $"Professor {professor.Nome} criado com sucesso!";
+            TempData["Tipo"] = "success";
+        }
+        else
+        {
+            TempData["Mensagem"] = $"Erro ao criar professor: {professor.Nome}";
+            TempData["Tipo"] = "danger";
+        }
+        return RedirectToAction("Index");
+    }
+    public async Task<IActionResult> ExcluirProfessor(int id)
+    {
+        if(await _professorRepository.ExcluirProfessorAsync(id))
+        {
+            TempData["Mensagem"] = $"Professor excluído com sucesso!";
+            TempData["Tipo"] = "success";
+        }
+        else
+        {
+            TempData["Mensagem"] = $"Erro ao excluir professor.";
+            TempData["Tipo"] = "danger";
+        }
         return RedirectToAction("Index");
     }
 }

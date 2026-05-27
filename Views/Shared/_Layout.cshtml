@@ -3,48 +3,74 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] – Acadêmico WEB</title>
+    <title>@ViewData["Title"] - Acadêmico WEB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/academico.css" asp-append-version="true" />
+    <link rel="icon" type="image/png" href="~/img/logo-ifmt.png" />
 </head>
 <body>
 
     <nav class="navbar">
         <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-            <div class="logo-icon">A</div>
+            <img src="~/img/logo-ifmt.png" alt="IFMT" style="height:44px; width:auto;" />
             <span>Acadêmico WEB</span>
         </a>
-        <ul class="navbar-nav">
+        <ul class="navbar-links" style="align-items:center;">
             <li>
                 <a asp-controller="Home" asp-action="Index"
-                class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")">
+                   class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")">
                     Início
                 </a>
             </li>
             <li>
                 <a asp-controller="Aluno" asp-action="Index"
-                class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Aluno" ? "active" : "")">
+                   class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Aluno" ? "active" : "")">
                     Discente
                 </a>
             </li>
             <li>
                 <a asp-controller="Professor" asp-action="Index"
-                class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Professor" ? "active" : "")">
+                   class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Professor" ? "active" : "")">
                     Docentes
+                </a>
+            </li>
+            <li>
+                <a asp-controller="TodasDisciplinas" asp-action="Index"
+                   class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "TodasDisciplinas" ? "active" : "")">
+                    Disciplinas
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Gestao" asp-action="Alunos">Gestão de Alunos</a>
+            </li>
+            <li style="margin-left:1rem; display:flex; align-items:center; gap:.75rem;">
+                <span style="font-size:.82rem; color:rgba(255, 255, 255, 0.936);">
+                    @Context.Session.GetString("UsuarioNome")
+                </span>
+                <a asp-controller="Auth" asp-action="Logout"
+                   style="font-size:.82rem; padding:.4rem .9rem; background:rgba(255,255,255,.1); color:rgba(255,255,255,.85); border-radius:6px; font-weight:500; text-decoration:none; border:0.5px solid rgba(255,255,255,.2);">
+                    Sair
                 </a>
             </li>
         </ul>
     </nav>
 
     <main>
+        @if (TempData["Mensagem"] != null)
+        {
+            <div style="background:@(TempData["Tipo"]?.ToString() == "success" ? "#dcfce7" : "#fee2e2"); color:@(TempData["Tipo"]?.ToString() == "success" ? "#166534" : "#991b1b"); padding:.85rem 1.5rem; text-align:center; font-size:.9rem; font-weight:500;">
+                @TempData["Mensagem"]
+            </div>
+        }
         @RenderBody()
     </main>
 
     <footer>
-        <strong>Instituto Federal de Mato Grosso</strong> – Campus Campo Verde &nbsp;|&nbsp;
+        <strong>Instituto Federal de Mato Grosso</strong> — Campus Campo Verde &nbsp;|&nbsp;
         Acadêmico WEB &copy; @DateTime.Now.Year
     </footer>
-    
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-

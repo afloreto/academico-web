@@ -1,0 +1,66 @@
+@model Academico.Models.DisciplinaProfessor
+
+@{
+    ViewData["Title"] = "Editar Disciplina";
+}
+
+<div class="section">
+    <h2 class="section-title">Editar Disciplina</h2>
+    <p class="section-sub">Atualize os dados da disciplina</p>
+    <div class="divider"></div>
+
+    <div class="card" style="max-width:560px;">
+        <form method="post" asp-action="Editar">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ProfessorId" />
+
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Código</label>
+                <input asp-for="Codigo" required />
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Nome da Disciplina</label>
+                <input asp-for="Nome" required />
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Carga Horária</label>
+                <input asp-for="CargaHoraria" required />
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Turno</label>
+                <select asp-for="Turno">
+                    <option value="Noturno">Noturno</option>
+                    <option value="Matutino">Matutino</option>
+                    <option value="Vespertino">Vespertino</option>
+                    <option value="Integral">Integral</option>
+                </select>
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Total de Aulas</label>
+                <input asp-for="TotalAulas" type="number" required />
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Aulas Ministradas</label>
+                <input asp-for="AulasMinistradasDadas" type="number" required />
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Quantidade de Alunos</label>
+                <input asp-for="QuantidadeAlunos" type="number" required />
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Horário</label>
+                <input asp-for="Horario" />
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.75rem;">
+                <label>Local de Aula</label>
+                <input asp-for="LocalAula" />
+            </div>
+
+            <div style="display:flex; gap:.75rem;">
+                <button type="submit" class="btn btn-primary" style="flex:1;">Salvar</button>
+                <a asp-action="Index" asp-route-professorId="@Model.ProfessorId"
+                class="btn btn-outline" style="color:var(--azul); border-color:var(--cinza-borda);">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>

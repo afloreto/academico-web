@@ -1,0 +1,109 @@
+@model IEnumerable<Academico.Models.Aluno>
+
+@{
+    ViewData["Title"] = "Gestão de Alunos";
+}
+
+<div class="section">
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:2rem;">
+        <div>
+            <h2 class="section-title">Todos os Alunos</h2>
+            <p class="section-sub">Encontre discentes por nome ou matrícula</p>
+            <div class="divider"></div>
+        </div>
+        <a asp-controller="Aluno" asp-action="CriarAluno" class="btn btn-primary" style="font-weight: 600; padding: 0.6rem 1.2rem; border-radius: 8px; display: flex; align-items: center; gap: 0.5rem;">
+            + Cadastrar Aluno
+        </a>
+    </div>
+
+    <form asp-controller="Gestao" asp-action="Alunos" method="get" class="filtros-box" style="margin-bottom: 2rem;">
+        <div class="filtro-grupo">
+            <label> Nome</label>
+            <input type="text" name="buscaNome" placeholder="Buscar por nome..." value="@Context.Request.Query["buscaNome"]" />
+        </div>
+        <div class="filtro-grupo">
+            <label> Matrícula</label>
+            <input type="text" name="buscaMatricula" placeholder="Buscar por matrícula..." value="@Context.Request.Query["buscaMatricula"]" />
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+            
+            @if (!string.IsNullOrEmpty(Context.Request.Query["buscaNome"]) || !string.IsNullOrEmpty(Context.Request.Query["buscaMatricula"]))
+            {
+                <a asp-action="Alunos" class="btn" style="background: #e2e8f0; color: #475569; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; display: flex; align-items: center;">Limpar</a>
+            }
+        </div>
+    </form>
+
+    <div class="card shadow-sm border-0" style="border-radius: 12px; overflow: hidden;">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3 border-0">
+            <h6 class="mb-0 fw-bold">Alunos cadastrados</h6>
+            <span class="badge bg-secondary rounded-pill">@(Model?.Count() ?? 0) alunos</span>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4 border-bottom-0 py-3 text-muted small fw-bold">ALUNO</th>
+                            <th class="border-bottom-0 py-3 text-muted small fw-bold">CPF</th>
+                            <th class="border-bottom-0 py-3 text-muted small fw-bold">MATRÍCULA</th>
+                            <th class="border-bottom-0 py-3 text-muted small fw-bold">CURSO</th>
+                            <th class="text-center border-bottom-0 py-3 text-muted small fw-bold">AÇÕES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            @foreach (var aluno in Model)
+                            {
+                                <tr>
+                                    <td class="ps-4 py-3">
+                                        <div style="display: flex; flex-direction: row; align-items: center; gap: 15px;">
+                                            <div class="avatar" style="width: 45px; height: 45px; min-width: 45px; font-size: 1.2rem; display: flex; justify-content: center; align-items: center; margin: 0; flex-shrink: 0;">
+                                                @(aluno.Nome.FirstOrDefault().ToString().ToUpper())
+                                            </div>
+                                            
+                                            <div style="text-align: left; line-height: 1.4;">
+                                                <div class="fw-bold text-dark" style="margin-bottom: 2px;">@aluno.Nome</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    
+                                    <td class="py-3 text-secondary">@aluno.Cpf</td>
+                                    
+                                    <td class="fw-bold py-3 text-dark">@aluno.Matricula</td>
+                                    <td class="py-3 text-secondary">@aluno.Curso</td>
+                                    <td class="text-center py-3">
+                                        <div style="display:flex; gap:.5rem; justify-content: center;">
+                                            <a asp-controller="Aluno" asp-action="Disciplinas" asp-route-id="@aluno.Id" 
+                                               style="font-size:.78rem; padding:.35rem .75rem; background:#dcfce7; color:#166534; border-radius:6px; font-weight:600; text-decoration:none;">
+                                                Disciplinas
+                                            </a>
+                                            <a asp-controller="Aluno" asp-action="Editar" asp-route-id="@aluno.Id" 
+                                               style="font-size:.78rem; padding:.35rem .75rem; background:#e5f0e6; color:var(--azul-claro, #1a365d); border-radius:6px; font-weight:600; text-decoration:none;">
+                                                Editar
+                                            </a>
+                                            <a asp-controller="Aluno" asp-action="Excluir" asp-route-id="@aluno.Id" 
+                                               style="font-size:.78rem; padding:.35rem .75rem; background:#fee2e2; color:#ad0303; border-radius:6px; font-weight:600; text-decoration:none;">
+                                                Excluir
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-5">
+                                    <p style="color:var(--texto-leve); margin: 0;">Nenhum aluno encontrado com os filtros aplicados.</p>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

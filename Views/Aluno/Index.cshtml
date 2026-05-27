@@ -1,17 +1,14 @@
 @model List<Academico.Models.Aluno>
 
 @{
-    ViewData["Title"] = "Discentes";
+    ViewData["Title"] = "Discente";
 }
 
 <div class="section">
-    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:2rem;">
-        <div>
-            <h2 class="section-title">Discentes</h2>
-            <p class="section-sub">Alunos matriculados no sistema acadêmico</p>
-            <div class="divider"></div>
-        </div>
-        <a asp-action="CriarAluno" class="btn btn-primary">+ Cadastrar Aluno</a>
+    <div style="margin-bottom:2rem;">
+        <h2 class="section-title">Discentes</h2>
+        <p class="section-sub">Painel do discente e resumo acadêmico</p>
+        <div class="divider"></div>
     </div>
 
     <div class="stats-row">
@@ -33,10 +30,10 @@
         <div class="avatar">S</div>
         <div class="perfil-info">
             <h2>Siene dos Santos Rosa</h2>
-            <p>📋 Matrícula: <strong>20241202412330034</strong></p>
-            <p>📚 Curso: <strong>Tecnologia em Análise e Desenvolvimento de Sistemas</strong></p>
-            <p>🗓️ Semestre: <strong>5º semestre · 2026/1</strong></p>
-            <p>📧 siene.r@estudante.ifmt.edu.br</p>
+            <p>Matrícula: <strong>20241202412330034</strong></p>
+            <p>Curso: <strong>Tecnologia em Análise e Desenvolvimento de Sistemas</strong></p>
+            <p>Semestre: <strong>5º semestre · 2026/1</strong></p>
+            <p>siene.r@estudante.ifmt.edu.br</p>
             <div class="perfil-chips">
                 <span class="chip">Tecnologia em Análise e Desenvolvimento de Sistemas</span>
                 <span class="chip">Campus Campo Verde</span>
@@ -48,7 +45,7 @@
     <div class="card">
         <div class="card-title">
             <div class="icon">📖</div>
-            Disciplinas Matriculadas – 2026/1
+            Disciplinas Matriculadas - 2026/1
         </div>
         <table>
             <thead>
@@ -103,7 +100,7 @@
     <div class="card">
         <div class="card-title">
             <div class="icon">📊</div>
-            Boletim – Semestres Anteriores
+            Boletim - Semestres Anteriores
         </div>
         <table>
             <thead>
@@ -201,97 +198,4 @@
             </tbody>
         </table>
     </div>
-
-    <h2 class="section-title" style="margin-top:1rem;">Todos os Alunos</h2>
-    <div class="divider"></div>
-
-    <div class="filtros-box">
-        <div class="filtro-grupo">
-            <label>Nome</label>
-            <input type="text" id="filtroNome" placeholder="Buscar por nome..." oninput="filtrar()" />
-        </div>
-        <div class="filtro-grupo">
-            <label>Matrícula</label>
-            <input type="text" id="filtroMatricula" placeholder="Buscar por matrícula..." oninput="filtrar()" />
-        </div>
-        <div class="filtro-grupo">
-            <label>Curso</label>
-            <select id="filtroCurso" onchange="filtrar()">
-                <option value="">Todos os cursos</option>
-                <option value="tecnologia em analise e desenvolvimento de sistemas">Tecnologia em Análise e Desenvolvimento de Sistemas</option>
-                <option value="agronomia noturno">Agronomia Noturno</option>
-                <option value="agronomia integral">Agronomia Integral</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="card" style="padding:0; overflow:hidden;">
-        <div style="padding:.85rem 1.5rem; border-bottom:1px solid var(--cinza-borda); display:flex; justify-content:space-between; align-items:center;">
-            <strong style="color:var(--azul); font-family:var(--fonte-titulo);">Alunos cadastrados</strong>
-            <span id="contador" style="font-size:.82rem; color:var(--texto-leve);">@Model.Count alunos</span>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Aluno</th>
-                    <th>Matrícula</th>
-                    <th>Curso</th>
-                    <th>Nascimento</th>
-                </tr>
-            </thead>
-            <tbody id="listaAlunos">
-                @foreach (var aluno in Model)
-                {
-                    var iniciais = string.Concat(aluno.Nome.Split(' ').Take(2).Select(p => p[0])).ToUpper();
-                    <tr data-nome="@aluno.Nome.ToLower()"
-                        data-matricula="@aluno.Matricula.ToLower()"
-                        data-curso="@aluno.Curso.ToLower()">
-                        <td>
-                            <div style="display:flex; align-items:center; gap:.75rem;">
-                                <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--verde),var(--azul-claro));display:grid;place-items:center;color:#fff;font-weight:700;font-size:.82rem;flex-shrink:0;">
-                                    @iniciais
-                                </div>
-                                <div>
-                                    <div style="font-weight:600;color:var(--texto);">@aluno.Nome</div>
-                                    <div style="font-size:.78rem;color:var(--texto-leve);">CPF: @aluno.Cpf</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>@aluno.Matricula</td>
-                        <td>@aluno.Curso</td>
-                        <td>@aluno.DataNascimento.ToString("dd/MM/yyyy")</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <div id="semResultados" style="display:none; padding:2.5rem; text-align:center; color:var(--texto-leve); font-size:.9rem;">
-            Nenhum aluno encontrado para os filtros aplicados.
-        </div>
-    </div>
 </div>
-
-@section Scripts {
-<script>
-    function filtrar() {
-        var nome      = document.getElementById('filtroNome').value.toLowerCase().trim();
-        var matricula = document.getElementById('filtroMatricula').value.toLowerCase().trim();
-        var curso     = document.getElementById('filtroCurso').value.toLowerCase().trim();
-        var linhas    = document.querySelectorAll('#listaAlunos tr');
-        var visiveis  = 0;
-
-        linhas.forEach(function(tr) {
-            var ok = true;
-            if (nome      && !tr.dataset.nome.includes(nome))           ok = false;
-            if (matricula && !tr.dataset.matricula.includes(matricula))  ok = false;
-            if (curso     && !tr.dataset.curso.includes(curso))          ok = false;
-            tr.style.display = ok ? '' : 'none';
-            if (ok) visiveis++;
-        });
-
-        document.getElementById('contador').textContent =
-            visiveis + (visiveis === 1 ? ' aluno' : ' alunos');
-        document.getElementById('semResultados').style.display =
-            visiveis === 0 ? 'block' : 'none';
-    }
-</script>
-}

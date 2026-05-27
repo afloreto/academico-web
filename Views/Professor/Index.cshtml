@@ -45,12 +45,28 @@
         {
             var inicial = prof.Nome.FirstOrDefault().ToString().ToUpper();
             <div class="docente-card"
-                data-nome="@prof.Nome.ToLower()"
-                data-area="@prof.Area.ToLower()">
+                 data-nome="@prof.Nome.ToLower()"
+                 data-area="@prof.Area.ToLower()">
                 <div class="docente-avatar">@inicial</div>
                 <h3>Prof. @prof.Nome</h3>
                 <span class="area-tag">@prof.Area</span>
-                <p class="email">📋 SIAPE: @prof.Siape</p>
+                <p class="email">SIAPE: @prof.Siape</p>
+
+                <div style="display:flex; gap:.5rem; margin-top:1rem;">
+                    <a asp-action="EditarProfessor" asp-route-id="@prof.Id"
+                       style="flex:1; text-align:center; font-size:.78rem; padding:.35rem .75rem; background:#e5f0e6; color:var(--azul-claro); border-radius:6px; font-weight:600; text-decoration:none;">
+                        Editar
+                    </a>
+                    <a asp-action="ExcluirProfessor" asp-route-id="@prof.Id"
+                       onclick="return confirm('Excluir Prof. @prof.Nome?')"
+                       style="flex:1; text-align:center; font-size:.78rem; padding:.35rem .75rem; background:#fee2e2; color:#ad0303; border-radius:6px; font-weight:600; text-decoration:none;">
+                        Excluir
+                    </a>
+                    <a asp-controller="DisciplinaProfessor" asp-action="Index" asp-route-professorId="@prof.Id"
+                    style="flex:1; text-align:center; font-size:.78rem; padding:.35rem .75rem; background:#dcfce7; color:#166534; border-radius:6px; font-weight:600; text-decoration:none;">
+                    Disciplinas
+</a>
+                </div>
             </div>
         }
     </div>

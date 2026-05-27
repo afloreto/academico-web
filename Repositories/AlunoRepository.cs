@@ -6,7 +6,10 @@ namespace Academico.Repositories;
 public interface IAlunoRepository
 {
     Task CriarAlunoAsync(Aluno aluno);
-    Task<List<Aluno>> ListarAlunosAsync();
+    Task<IEnumerable<Aluno>> GetAllAsync();
+    Task<Aluno?> BuscarPorIdAsync(int id);
+    Task AtualizarAlunoAsync(Aluno aluno);
+    Task DeletarAlunoAsync(int id);
 }
 
 public class AlunoRepository : IAlunoRepository
@@ -25,8 +28,29 @@ public class AlunoRepository : IAlunoRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<List<Aluno>> ListarAlunosAsync()
+    public async Task<IEnumerable<Aluno>> GetAllAsync()
     {
-        return await _context.Aluno.ToListAsync();
+        return await _context.Aluno.ToListAsync(); 
+    }
+
+    public async Task<Aluno?> BuscarPorIdAsync(int id)
+    {
+        return await _context.Aluno.FindAsync(id);
+    }
+
+    public async Task AtualizarAlunoAsync(Aluno aluno)
+    {
+        _context.Aluno.Update(aluno);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeletarAlunoAsync(int id)
+    {
+        var aluno = await _context.Aluno.FindAsync(id);
+        if (aluno != null)
+        {
+            _context.Aluno.Remove(aluno);
+            await _context.SaveChangesAsync();
+        }
     }
 }

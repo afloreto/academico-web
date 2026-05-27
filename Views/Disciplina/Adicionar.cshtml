@@ -1,0 +1,67 @@
+@{
+    ViewData["Title"] = "Adicionar Disciplina";
+}
+
+<div class="section">
+    <h2 class="section-title">Adicionar Disciplina</h2>
+    <p class="section-sub">Disciplina para @ViewBag.AlunoNome</p>
+    <div class="divider"></div>
+
+    <div class="card" style="max-width:560px;">
+        <form method="post" asp-action="Adicionar">
+            <input type="hidden" name="AlunoId" value="@ViewBag.AlunoId" />
+
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Código</label>
+                <input name="Codigo" placeholder="Ex: Normal.2474" required />
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Nome da Disciplina</label>
+                <input name="Nome" placeholder="Ex: Programação WEB I" required />
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Docente</label>
+                <input name="Docente" placeholder="Ex: Prof. Samuel Bianch" required />
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Carga Horária</label>
+                <input name="CargaHoraria" placeholder="Ex: 68h/80 Aulas" required />
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Turno</label>
+                <select name="Turno">
+                    <option value="Noturno">Noturno</option>
+                    <option value="Matutino">Matutino</option>
+                    <option value="Vespertino">Vespertino</option>
+                    <option value="Integral">Integral</option>
+                </select>
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Total de Aulas</label>
+                <input name="TotalAulas" type="number" placeholder="Ex: 80" value="80" required />
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Aulas Ministradas</label>
+                <input name="AulasMinistradasDadas" type="number" placeholder="Ex: 60" value="0" required />
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Quantidade de Alunos</label>
+                <input name="QuantidadeAlunos" type="number" placeholder="Ex: 22" value="0" required />
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.25rem;">
+                <label>Horário</label>
+                <input name="Horario" placeholder="Ex: 5N1234" />
+            </div>
+            <div class="filtro-grupo" style="margin-bottom:1.75rem;">
+                <label>Local de Aula</label>
+                <input name="LocalAula" placeholder="Ex: SALA AULA A2 - Bloco A" />
+            </div>
+
+            <div style="display:flex; gap:.75rem;">
+                <button type="submit" class="btn btn-primary" style="flex:1;">Adicionar</button>
+                <a asp-action="Index" asp-route-alunoId="@ViewBag.AlunoId"
+                class="btn btn-outline" style="color:var(--azul); border-color:var(--cinza-borda);">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
