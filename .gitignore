@@ -1,9 +1,8 @@
-# Pastas de compilação
+.vs/
 bin/
 obj/
-
+appsettings.Development.json
 # Pastas de configurações locais
-.vs/
 .vscode/
 
 # Configurações de usuário
